@@ -2,6 +2,7 @@ package com.myspring6training.spring6RestTemplate.client;
 
 import com.myspring6training.spring6RestTemplate.model.BeerDTO;
 import com.myspring6training.spring6RestTemplate.model.BeerDTOPageImpl;
+import com.myspring6training.spring6RestTemplate.model.BeerStyle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,15 @@ public class BeerClientImpl implements BeerClient {
     private static final String BEER_V1_PATH = "/api/v1/beer";
 
     @Override
-    public Page<BeerDTO> listBeers(String beerName) {
+    public Page<BeerDTO> listBeers() {
+        return this.listBeers(null, null,
+                null, null, null);
+    }
+
+    @Override
+    public Page<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber,
+                                   Integer pageSize) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath(BEER_V1_PATH);
 
@@ -26,24 +35,27 @@ public class BeerClientImpl implements BeerClient {
             uriComponentsBuilder.queryParam("beerName", beerName);
         }
 
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<BeerDTOPageImpl> pageResp =
-                restTemplate.getForEntity(uriComponentsBuilder.toUriString(),
-                        BeerDTOPageImpl.class);
+        if (beerStyle != null) {
+            uriComponentsBuilder.queryParam("beerStyle", beerStyle);
+        }
 
-        /*ResponseEntity<Map> mapResp =
-                restTemplate.getForEntity(BASE_URL + BEER_V1_PATH, Map.class);
+        if (showInventory != null) {
+            uriComponentsBuilder.queryParam("showInventory", beerStyle);
+        }
 
-        ResponseEntity<JsonNode> jsonResp =
-                restTemplate.getForEntity(BASE_URL + BEER_V1_PATH, JsonNode.class);
+        if (pageNumber != null) {
+            uriComponentsBuilder.queryParam("pageNumber", beerStyle);
+        }
 
-        //System.out.println(stringResp.getBody());
-        jsonResp.getBody().findPath("content")
-                .elements().forEachRemaining(
-                        jsonNode -> {
-                            System.out.println(jsonNode.get("beerName").asText());
-                        }
-                );*/
-        return pageResp.getBody();
+        if (pageSize != null) {
+            uriComponentsBuilder.queryParam("pageSize", beerStyle);
+        }
+
+
+        ResponseEntity<BeerDTOPageImpl> response =
+                restTemplate.getForEntity(uriComponentsBuilder.toUriString(), BeerDTOPageImpl.class);
+
+
+        return response.getBody();
     }
 }
