@@ -18,10 +18,13 @@ public class BeerClientImpl implements BeerClient {
     private static final String BEER_V1_PATH = "/api/v1/beer";
 
     @Override
-    public Page<BeerDTO> listBeers() {
+    public Page<BeerDTO> listBeers(String beerName) {
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath(BEER_V1_PATH);
 
+        if (beerName != null) {
+            uriComponentsBuilder.queryParam("beerName", beerName);
+        }
 
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<BeerDTOPageImpl> pageResp =
