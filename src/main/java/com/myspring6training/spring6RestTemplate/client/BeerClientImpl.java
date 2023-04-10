@@ -36,6 +36,6 @@ public class BeerClientImpl implements BeerClient {
                             System.out.println(jsonNode.get("beerName").asText());
                         }
                 );*/
-        return null;
+        return pageResp.getBody();
     }
 }
