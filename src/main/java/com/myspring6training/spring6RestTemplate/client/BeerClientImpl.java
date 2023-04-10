@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
 @Service
@@ -19,9 +20,13 @@ public class BeerClientImpl implements BeerClient {
     @Override
     public Page<BeerDTO> listBeers() {
 
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromPath(BEER_V1_PATH);
+
+
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<BeerDTOPageImpl> pageResp =
-                restTemplate.getForEntity(BEER_V1_PATH, BeerDTOPageImpl.class);
+                restTemplate.getForEntity(uriComponentsBuilder.toUriString(),
+                        BeerDTOPageImpl.class);
 
         /*ResponseEntity<Map> mapResp =
                 restTemplate.getForEntity(BASE_URL + BEER_V1_PATH, Map.class);
