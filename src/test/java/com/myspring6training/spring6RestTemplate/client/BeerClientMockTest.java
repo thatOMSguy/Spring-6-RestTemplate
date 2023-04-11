@@ -38,7 +38,6 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  * underneath, the covers of that implementation and testing that.
  * The problem is this is by default is going to be looking to connect to an actual server.
  * This becomes very difficult to test because you need some type of endpoint to test with.
- * <p>
  * And what we can do here is we can use a mock client very much like spring mock MVC,
  * where we can create a mock server for it to work with and it takes a little bit of configuration to get it to work
  * And first thing that we want to do is create the JSON payload that our mock server will be returning.
