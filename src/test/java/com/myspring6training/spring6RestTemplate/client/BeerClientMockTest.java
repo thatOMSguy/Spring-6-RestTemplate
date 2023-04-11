@@ -34,8 +34,18 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 
 /**
- * Created by jt, Spring Framework Guru.
+ * Now, the problem with testing this is that we are using the rest template client,
+ * underneath, the covers of that implementation and testing that.
+ * The problem is this is by default is going to be looking to connect to an actual server.
+ * This becomes very difficult to test because you need some type of endpoint to test with.
+ * <p>
+ * And what we can do here is we can use a mock client very much like spring mock MVC,
+ * where we can create a mock server for it to work with and it takes a little bit of configuration to get it to work
+ * And first thing that we want to do is create the JSON payload that our mock server will be returning.
+ * So remember that it's going to be mimicking a web application,
+ * and we're not returning a Java object.We're actually want to return back a JSON payload
  */
+
 @RestClientTest
 @Import(RestTemplateBuilderConfig.class)
 public class BeerClientMockTest {
