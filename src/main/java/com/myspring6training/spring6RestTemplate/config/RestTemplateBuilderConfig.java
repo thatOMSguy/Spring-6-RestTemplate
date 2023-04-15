@@ -1,6 +1,7 @@
 package com.myspring6training.spring6RestTemplate.config;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateBuilderConfigurer;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -43,7 +44,7 @@ public class RestTemplateBuilderConfig {
 
     @Bean
     RestTemplateBuilder restTemplateBuilder(RestTemplateBuilderConfigurer configurer,
-                                            OAuthClientInterceptor interceptor) {
+                                           OAuthClientInterceptor interceptor) {
 
         assert rootUrl != null;
 
