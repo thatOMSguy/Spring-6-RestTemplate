@@ -47,14 +47,14 @@ public class RestTemplateBuilderConfig {
 
         assert rootUrl != null;
 
-        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
-        messageConverters.add(converter);
+//        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+//        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+//        converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_HTML));
+//        messageConverters.add(converter);
 
         return configurer.configure(new RestTemplateBuilder())
                 .additionalInterceptors(interceptor)
-                .messageConverters(messageConverters)
+               // .messageConverters(messageConverters)
                 .uriTemplateHandler(new DefaultUriBuilderFactory(rootUrl));
     }
 }
